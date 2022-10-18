@@ -174,10 +174,25 @@ Lecture 4 : LQR, iLQR, MDP
 		x_t+1 = A*x_t + B*u_t ---> base state form
 								   equivalent to a transiction funct
 		define cost funct: 
-			QUADRATIC COST FUNCT ----> for min of funct
-				c(x_t, u_t) 
-					
-	
+			QUADRATIC COST FUNCT ----> for min of funct 
+			EQUIVALENT TO V FUNCT 
+				c(x_t, u_t)  = (x.T Q x) + (u.T R u)   
+					Q = cost for each state	  [dim k*k]
+					R = cost for each action  [dim r*r] 
+					see https://stanford.edu/class/ee363/lectures/dlqr.pdf for more details
+					zero-controll = Allways non zero-cost
+			Q_FUNC with cost funct
+			Q*_h (x, u) = c(x, u) + 𝔼[V_h+1(x')] where x' ~ p(.|x, u)
+			
+				expansion Q*_h:
+					c(x, u) = (x.T Q x) + (u.T R u)
+					x' ~ p(.|x, u) are deterministic ---> x_t+1 = A*x_t + B*u_t
+					Total : (x.T*Q*xt) + (u.T*R*u) + V*_h+1(Ax + Bu)
+		
+		Inductive step: Given assumption V_h+1(x) = x.T*P_h+1*x |
+						prove that V_h(x) = x.T*P_h*x			|---> different time step
+			
+			
 		
 	
 			

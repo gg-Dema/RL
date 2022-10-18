@@ -17,6 +17,7 @@ def main():
         print(f"Starting game {i+1}")
         env = NonDeterministicGridWorld(4+i,5+i)
         policy = policy_iteration(env)
+        print("\n", policy.reshape((env.height, env.width)))
 
         state = env.reset()
         if render: env.render()

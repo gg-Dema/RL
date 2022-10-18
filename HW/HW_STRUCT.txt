@@ -1,0 +1,51 @@
+2 packages: 
+
+
+	iQLR
+		env.py
+			f maybe_parse_reset_bounds()
+			- CartPole (GYM.ENV)
+				f init
+				f step 
+				f reset 
+				f render
+				f close 
+		stud.py
+			- class CartPole
+				f init
+				f getA 					||| TO DO
+				f getB 					|||	TO DO
+			f lqr(A, B, T) --> return K ||| TO DO
+		main.py
+			f main (contains parser ---> render mode)
+		
+		
+		
+		
+	GridWorld || policy iteration
+	
+		grid_world.py 
+			- class GridWorld (GYM.ENV)
+				f init
+				f transition_function
+				f transition_probabilities
+				f reward_function 
+				f terminal_condition 
+				f step
+				f render
+				f reset
+				f reward_probabilities
+				f close
+				
+			- class NonDeterministicGridWorld --> extend GridWorld
+				f init
+				f transition_function 
+				f transition_probabilities
+				
+				
+		stud.py
+			f value_iteration(env)
+			f policy_iteration(env, gamma, iters)  ||| TO DO
+			
+		main.py
+			f main()
