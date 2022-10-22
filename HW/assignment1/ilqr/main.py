@@ -39,10 +39,10 @@ def main():
             u = K @ error
             x, reward, done, _, _ = env.step(u)
             total_reward += reward
+
         print("\tTotal Reward:", total_reward)
         rewards.append(total_reward)
     print("Mean Reward: ", np.mean(rewards))
-
 
 if __name__ == '__main__':
     main()

@@ -197,6 +197,28 @@ Lecture 4 : LQR, iLQR, MDP
 	
 			
 
-Lecture 5 :  
-Lecture 6 : 
+Lecture 5 : APPROXIMATE POLICY ITERATION 
+
+	considering policy iteration : 2 steps --> |1| evaluation of value according to policy
+	|										   |2| improvment with argmax (pi) di Q
+	|
+	|---> work only if the evaluation part is accurate, that is garantito
+	
+	Large state space / continuos state space ---> we cannot enumerate all the state 
+												   SO WE CANNOT EVALUATE PROPERLY
+												   
+	Approximate Q with Q^ --> finite state, don't consider all the state
+		followed by V^(s')
+	|
+	|
+	|---> action space is still small
+	
+	ESTIMATION: 2 step procedure : -->  ROLL-IN
+										ROLL-OUT
+
+Lecture 6 : Q_LEARNING, SARSA, MONTECARLO METHODS
+
+	TEMPORAL DIFFERENCE UPDATE: 
+		estimate 
+	
 
