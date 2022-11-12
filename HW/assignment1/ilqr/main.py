@@ -43,6 +43,5 @@ def main():
         print("\tTotal Reward:", total_reward)
         rewards.append(total_reward)
     print("Mean Reward: ", np.mean(rewards))
-
 if __name__ == '__main__':
     main()

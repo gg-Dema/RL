@@ -1,0 +1,65 @@
+QUI VENGONO RIPORTATI I TITOLI DELLE SLIDE PER OGNI LEZIONE,
+NELLA SPERANZA CHE POSSANO FORNIRE UNA OVERVIEW DELL'ARGOMENTO 
+
+
+LECT 6
+Q_LEARNING, SARSA
+
+Data-Generation: Roll_out for estimate Q
+
+	Monte-Carlo method
+	Monte-Carlo Update
+	Moving Average
+	Tabular Updates
+	MC Pros/Cons
+	
+	Temporal Difference method
+	Bootstrapping 
+	Temporal Difference Update
+	Tabular Updates vs Function approximatior
+	TD Pros/Cons
+	
+	TD & MC example Driving Home 
+	TD vs MC vs DP
+	
+	Explortion 
+	epsilon-greedy Exploration 
+	epsilon-greedy policy imporovement 
+	
+	epsilon-greedy in MC
+	epsilon-greedy in TD
+		Sarsa
+		Q-learning
+	
+	On-policy vs Off-policy
+	Sarsa pseudocode
+	Q-learning pseudocode 
+	Convergence of Sarsa + Q-learning 
+	
+	
+LECT 7 N-STEP BOOSTSTRAPPING 
+	n-step Returns
+		in TD e MC
+	
+	n-step TD for V
+	n-step Sarsa 
+	Averaging n-step Returns 
+	lambda-returns
+	
+	lambda-returns + TD
+	Forward-view TD
+	Backward-view TF
+	Eligibility Traces
+	Credot Assignment 
+	Eligibility traces and Lambda Values
+	Forward & backward view equivalence TH
+	
+	Sarsa-Lambda
+	Going Wide vs Going Deep
+	n-step expected Sarsa
+	Q(sigma)
+	
+	
+	
+
+		

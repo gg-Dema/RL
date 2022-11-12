@@ -26,8 +26,6 @@ class CartPole:
                     / (total_mass) ) )/ ( length* ( (4/3) - ((masspole*((cos(theta)**2))) / total_mass) ) )
 
         A = np.eye(4)
-
-
         A[0, 1] = dt
         A[1, 1] = 1
         A[1, 2] = (polemass_length*dt*(12*(total_mass**2)*g - 12*total_mass*force*sin(2*theta) - 24*(total_mass**2)*g*(cos(theta)**2)

@@ -44,6 +44,7 @@ def maybe_parse_reset_bounds(
     return low, high
 
 class CartPoleEnv(gym.Env):
+
     """
     ### Description
 
@@ -57,7 +58,6 @@ class CartPoleEnv(gym.Env):
 
     The action is a `ndarray` with shape `(1,)` which can take values `{0, 1}` indicating the direction
      of the fixed force the cart is pushed with.
-
     | Num | Action                 |
     |-----|------------------------|
     | 0   | Push cart to the left  |

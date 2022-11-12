@@ -1,0 +1,69 @@
+VALUE FUNCT APPROXIMATOR
+
+
+create V(s, w), Q(s, a, w), with w Aka parameters form funct approximator, nn etc
+
+how optimze V? ---> q-learning, + linear approx [FOR TABLE]
+	just minimaize the error for MeanSquareError (over w)
+	 
+	
+	USE GRAD DESCENT
+		optimize the weight of gradi descent: 
+		w_t+1 = w_t - lr*grad(J)
+		using J = mean square error: 
+		get close form for grad ---> w - lr* (f* - f(x, w)) * grad(f(x,w))
+		
+		DO THE SAME FOR Q(S,A) ---> same stuff
+		
+	EXTRA ON Q: 
+		q-funct =  liner combination of weight by features w_.t x_(s, a)
+		notice the sing ---> + NOT - (in update of grad, ok cause after all calc return a -)
+		w_t+1 = w_t + lr*(Q(pi)_t - w_t*x(s, a)) * (x(s, a)
+		
+		target of q: depends on approximator: MC, TD, forward-view of TD
+		MC: actual return
+		TD(0) = r(t+1) + gamma*Q
+		--------------------
+		difference for backward-view of TD
+			weighted by eligibility trace 
+	
+	-----------------------------------------------
+	
+	BATCH METHODS:
+		iterate during episodes: Q_learning  || INCREMENTAL METHODS
+		VS
+		batch || MORE FAST, STABLE ETC
+			return of least square ---> min a error as Sum(q_pi - q_i(s, a, w))^2
+			
+	STOCHASTIC GRAD or close form for linear case
+	
+	Least square in linear case :
+	w* = argmin(w) least square 
+	same X_daga*Q_pi  = W ---> classic projection matrix 
+	
+	
+	EXPERIENCE REPLAY : ---> introduct sample from transition 
+		can be done also in NN
+	What about features? ---> insepcted in comb:
+								think about pendulum, cartpole etc
+								most of time we use just one features combination, not all 
+								we'll see some ways
+	-----------------------------------
+	Tile coding: discretize continuos space in quadrettatura, 2d continuos space became a grid
+		cool stuff about binary features --> speed up, tile coding is usefull for that
+	
+	pro version
+	COARSE CODING: 
+		imagine many circle in the space, overlapped
+		state = circle that contains our action space 
+		1 for circle that contains the state, 0 for the others
+
+	PRO VERSION 2
+	Radial basis function: 
+		square, not circle, mix up between coarse and tile coding
+		RBF: discretization is done at multiple resolutions, ---> use x as gaussian distributed 
+																  inside the square
+######################################################################################
+	
+	
+	

@@ -1,0 +1,78 @@
+Feudal rl
+Representation learning for RL
+Model-based + rapresenation learning
+exploration
+
+------------
+Date pub
+
+
+EXPLORATION: usare per trainare Patch Manager
+
+¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
+PROBLEM DESCRIPTION
+¯¯¯¯¯¯¯¯¯
+Curiosity-driven Exploration by self-supervised prediction | 2017
+Exploration and Incentives in Reinforcement Learning | 2021
+------------------------------------------------------------------
+TECNICHE
+¯¯¯¯¯¯¯¯¯
+Reinforcement Learning in Sparse-Reward environments with hindsight policy gradient| 2021
+
+ASK&EXPLORE: Grounded Question Answering for Curiosity-Driven Exploration | 2021
+
+Hindsinght Goal Ranking on Replay Buffer for sparse reward Env | 2021
+safe Exploration in model-based reinforcement learning using controll Barrier Function | 2021-22 --> FRAMEWORK
+
+
+
+MODEL-BASED REINFORCEMENT LEARNING
+
+--------------------------------------------
+
+PROBLEM DESCRIPTION
+---------
+	IMG VS CNN
+	Dream to Control: Learning Behaviors by Latent Imagination 2020
+	
+	planning by rll 
+	Learning model-based planning from scratch 2017
+	Model-Based Offline Planning with Trajectory Pruning 2021
+	Online and Offline Reinforcement Learning by Planning with a Learned Model 2021
+	
+	INTEGRAZIONE LOSS 
+	Improving Model-Based Reinforcement Learning with Internal State Representations through Self-Supervision 2021
+	
+	
+	
+
+ROBOTICS
+
+--------------------------------------------
+
+PROBLEM DESCRIPTION
+-----------
+Sample-efficient Reinforcement Learning Representation Learning with Curiosity Contrastive Forward Dynamics Model 2021
+Learning Invariant Representations for Reinforcement Learning without Reconstruction 2020
+
+Transfert tech from simulation to real world
+Grounded action transformation for sim-to-real reinforcement learning 2021
+
+
+
+
+
+
+
+HIERERCHICAL RL
+
+Learning World Graphs to Accelerate Hierarchical Reinforcement Learning 2019 
+Planning-Augmented Hierarchical Reinforcement Learning 2021
+
+
+
+
+
+
+
+

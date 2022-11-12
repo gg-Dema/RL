@@ -1,0 +1,139 @@
+RECAP
+#############################################################
+
+Montecarlo method vs temporal difference: 
+montecarlo: we need to wait for termination condition
+temporal difference: just use the next prediction
+	2 ways for choose the new action: 
+		e-greedy ---> sarsa : (select policy)
+							  random action with prob (1-epsilon)
+							  max action with prob (epsilon)
+		greedy respect Q_funct --> Q_learning : we don't use policy, but max Q
+	
+BOOTSTRAPPING:
+	estimate somethings based on next estimation
+	montecarlo don't use that, wait for entire process
+	dynamic programming and temporal difference do. 
+		dynamic use expectation 
+		temporal use a prediction of next state
+
+############################################################
+
+INIT LECTURE: 
+	TD: problem with env when the reward come only in the terminal state
+	MC: problem with research space: bigger
+	
+
+N-step: use n step, collect the reward and mix up MC and TC
+for n --> inf: Sarsa = Montecarlo
+
+n = 1 --> y = G_t  = r_t + [gamma*V(s_t+1)]
+n = 2 --> y = G_t2 = r_t + [gamma*_t+1] +  [gamma^2 * V(S_t+2)]
+
+plot on Round Mean Square error: --->
+	Alpha : step size
+	depends on alpha: there is a min for each alpha [depends on alpha value]
+	after the right value the error grow up until inf
+	how find right alpha:
+						opt 1: try it
+						opt 2: use ELIGIBITY TRACE
+						
+						
+How combine information from all the timestep?
+	Lambda-returns: calc all the return for all n-step. 
+	average them	
+	1-lambda  * lambda^n-1 = weight
+	
+	y = g_t(lambda) = 	1- lambda * sum(n=1, inf) lambda^(n-1)*G_t(n)
+	
+	exist a decay
+
+PROBLEM: LOT OF CALC
+		 WAIT UNTIL TERMINATION ---> but we have task that never terminate
+
+BACKWARD_VIEW TD(lambda): 
+	temporal difference for actual state: 
+	compute backward for previous error: Eligibility Traces
+	
+	no wait for what happened next, just remember past and update
+	usually we do this for tabular problem but can be extend for funct approx
+		
+
+CREDIT ASSIGNMET AND ELIGIBILITY TRACES: give credit for state/state-action
+		use heuristic ---> FREQUENCY (most frequent state get credit)
+						   RECENCY (most recent state get credit)
+
+	use traces : init = 0
+	each step compute eligibility trace for all the state
+
+	compute eligibility  e(s) = gamma*lambda*e_t-1(s) + I(s_t=s) 
+					I = 1 is s == s_t
+					gamma ---> RECENCY
+					ID_FUNCT ---> FREQUENCY
+					
+
+	discounted to gamma ---> each state will be decrease going on (forget value)
+	
+	-------------------------
+	now we can use TIME DIFFERENCE in backward mode
+	do update for all state:
+		V^ = V^(s) + alpha*delta*eligibility(s)
+		delta = temporal difference error = V(s') - V
+		TD do this for one state at time, we have done the same but for all the state: 
+			(we keep tracking of all value from eligibility traces)
+			so for this reason it's easy to do for tabular form 
+			
+	SUPER PRO: reduce variance of montecarlo methods
+
+
+ON LAMBDA VALUE: 
+	lmbda = 0:  e_0(s) = 0
+		 		e_t(s) = just indicator funct = max 1
+		 			just 1 step temporal difference, aka classic on
+	lambda = 1:
+				credit is mantained until the end of episode
+				same of montecarlo 
+			EXE: ---> state visited only 1 time (at timestep k)
+				e_t(s) = 0 id t < k ----> k = time step
+				e_t(s) = gamma^(t-k) if t > k
+						
+			TOTAL UPDATE:
+				sum(t=0, T-1) alpha*delta*eligibility
+				remove everything before k ---> remove alpha form sum
+					alpha * (G_k - V^(s_t) ] 	
+		
+		
+SLIDE 59
+	recap delta = td error --- (V(s') - V)
+	expand all with feed with delta definition  
+	a lot of term are the same, so we can remove it
+	in the end :
+	montecarlo update that we generally do
+	setting lambda to 1 ---> same update without waiting for the end of termination 
+	
+	
+	
+EXE IN GENERAL: state that are visited only 1 at timestep k
+	e_t(s) = (gamma*lambda)^t-k if t> k
+	expand all: 
+		expand definition of G
+		we'll get alpha(G_k(^lambda)  - V^Pi(s_t))
+		
+EXIST A TH: forward and backward are equivalent [in offline setting]
+			recent th ---> they are equivalent also in online setting with a particular error
+			
+
+
+offline update: labmda = 0 ---> backward TD(0) = forward TD(0)
+				lambda = 1 ----> TD(1) = MONTECARLO
+ONline  XXXXXXXXXXXX
+
+
+
+SARSA SETTING : sarsa - lambda
+
+sarsa(max Q_funct)
+	
+LOST_MOMENT---> complete the last slide by yourself
+
+
