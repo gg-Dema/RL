@@ -20,10 +20,12 @@ class VanillaFeatureEncoder:
 
 class RBFFeatureEncoder:
 
-    def __init__(self, env, n_components=100, sigma=1):
+    def __init__(self, env, n_components=100, sigma=1, constant_sigma=True):
         self.env = env
         self.n_components = n_components
-        self.sigma = sigma
+        if constant_sigma:
+            self.sigma = np.full(n_components, sigma)
+        else: self.set_non_constant_sigma()
         center_shape = (n_components, env.observation_space.shape[0])
         self.min = env.observation_space.low
         self.max = env.observation_space.high
@@ -36,8 +38,8 @@ class RBFFeatureEncoder:
         scaled_state = state_std * (self.max - self.min) + self.min
 
         for i in range(self.n_components):
-            arg = (scaled_state - self.center[i])**2
-            arg = -np.linalg.norm(arg) / (2*self.sigma)**2
+            arg = (scaled_state - self.center[i])
+            arg = -np.linalg.norm(arg) / (2*self.sigma[i])**2
             feats[i] = arg
         return feats
 
@@ -53,8 +55,8 @@ class RBFFeatureEncoder:
 
 class TDLambda_LVFA:
     def __init__(self, env, feature_encoder_cls=RBFFeatureEncoder,
-        alpha=0.05, alpha_decay=1,
-        gamma=0.999, epsilon=0.3, epsilon_decay=1, lambda_=0.9):
+        alpha=0.1, alpha_decay=0.99,
+        gamma=0.999, epsilon=0.3, epsilon_decay=0.99, lambda_=0.9):
         self.env = env
         self.feature_encoder = feature_encoder_cls(env)
         self.shape = (self.env.action_space.n, self.feature_encoder.size)
@@ -75,12 +77,19 @@ class TDLambda_LVFA:
         s_feats = self.feature_encoder.encode(s)
         s_prime_feats = self.feature_encoder.encode(s_prime)
 
+       # FORWARD_VERS
+        action_prime = self.epsilon_greedy(s_prime)
+        td_error = reward + (1-done)*self.gamma*self.Q(s_prime_feats)[action_prime] - self.Q(s_feats)[action]
+        delta_w = td_error*s_feats
+        self.weights[action] += self.alpha*delta_w
+
+        ''' BACK-VERS
         error = reward + (1-done)*self.gamma*self.Q(s_prime_feats).max() - self.Q(s_feats)[action]
 
         self.traces += s_feats
         self.weights += self.alpha*error*self.traces
         self.traces = self.traces*self.gamma*self.lambda_
-
+        '''
     def update_alpha_epsilon(self): # modify
         self.epsilon = max(0.1, self.epsilon*self.epsilon_decay)
         self.alpha = self.alpha*self.alpha_decay

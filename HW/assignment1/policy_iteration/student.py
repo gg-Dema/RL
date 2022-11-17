@@ -97,8 +97,8 @@ def policy_iteration(env, gamma=0.99, iters=100):
                 v_greedy = (next_state_prob * (REWARDS[s] + gamma * v_old)).sum()
 
                 if v_greedy > max_v:
-                    changed = True
                     policy[s] = a
                     max_v = v_greedy
+                    changed = True
 
     return policy.reshape((env.height, env.width))
