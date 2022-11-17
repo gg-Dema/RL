@@ -1,0 +1,36 @@
+struct of exe 4 Approximate Vf
+
+2 classes
+	Encoder
+	Q_learning LVFA # Agent
+	
+
+workflow: 
+	agent #init
+	agent.train
+	agent.evaluate
+	
+	
+Train:
+	run for iter
+	
+	run for max step ep
+		select act
+		next_state
+		update_transition  ---> self.funct
+						
+						#
+						encode state
+						encode next_state
+						select future action 
+						temporal_difference error
+						delta_w # By close form gradient 
+						update w 
+		
+		update s ---> s_prime 
+		
+		done ? break
+	
+	update_alpha_epsilon 
+
+	

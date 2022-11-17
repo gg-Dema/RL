@@ -1,0 +1,82 @@
+Basic Alg: 
+	Generate data
+	Fit model usign data
+	Plan on learned model ---> Value iter, policy iter, Iter-lqr
+	
+Full Model-based Rl loop
+
+Model fitting : 	
+	How estimate P(s' | s, a) = SUM(i=1->N) identity_funct(s'_i = s') / N
+	
+Planning : (classic solution + :
+	Q-planning : 
+	Monte-Carlo Tree Search: 
+	
+	Dyna-Q
+	
+	More on planning 
+		Background planning 
+		Decision Time planning --> Rollout planning Alg / MonteCarlo Tree search
+		mix-up of this stuff ^
+	
+	Case Study:
+		AlphaGo MCTS
+		AlphaGO zero
+		MuZero : MCTS
+	
+	Learning Dynamics from Pixels
+	PlaNet
+	Sim-To-Real
+	NARROWIG THE REALITY GAP
+		Progressive Network 
+			vs fineTuning
+		Dynamics Randomization 
+---------------------------------------------------------------------
+
+
+Policy Search
+	policy from value ---> classic way of search for good policy
+	Problem:
+	|	optimal Policy not always deterministic and eps-greedy is not enough 
+	|	+ dramatic policy oscillatoins 
+	|
+	
+	Parameterized Policy ---> policy a ~ 𝜋_𝜃(s) or p(.|s,𝜃)
+	[now depends by 𝜃]
+	
+	
+	Target: find the best parameters 𝜃 for create the best policy 𝜋_𝜃
+	|	
+	|	we have to define a Objective function (J(𝜋)) ---> ~ cost funct
+	|	2 opt: 
+	|		episodic tasks:
+	|			value at start state (undiscounted)
+	|		continuing task:
+	|			Value at start (discounted)
+	|	see SuttonBarto 10.4 Deprecating the discounted setting 
+	
+	Policy optimization:  DONT USE GRADIENT (this is a different field || see later for grad)
+	EVOLUTION STRATEGY : https://openai.com/blog/evolution-strategies/
+	|	hill climbing simplex/Genetic Alg
+	|	Cross entropy method
+	|	covariance MAtrix Adaptation
+	
+	Policy Grad: 
+	|	ok only for convex function optimality is guarantees
+	|	Compute 𝛻 𝜃J(𝜋_𝜃) by finire differences  ---> aka old school derivative
+	|	|	pertureb  𝜃 by small amount in k-th dimension (one-hot vect)
+	|	
+	|	OR
+	|	Compute gradient by differentiable policy classes
+	|	|	softmax linear policy (as a feature vect)
+	|	|	Can be thought as a classifier for discrete actions 
+	|	
+	|	
+	|	OR Likelihood ratio policy Gradient 
+	|	|	given a trajectory tau = {s0 a0 s1 a1 ...}
+	|	|	exist a probability distrib parametraized by 𝜃
+	|
+	|	Policy Gradient Theorem 
+	|	|	the polict gradient th generalizes the likelihood ratio approach
+	|	|	(Infinite Setting) vs (Finite Setting)
+	|--------

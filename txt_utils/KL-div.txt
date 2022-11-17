@@ -1,0 +1,17 @@
+KL-DIVERGENCE  
+
+Policy iteration recall: 
+	procedure: same of always: eval-> improve-> eval-> imporv ||||
+	
+	replace: Qfunct with the Advantage funct ---> 
+		improv = pi_t+1 = argmax of A(s, a)
+						  argmax od Q(s, a) - V(s) 
+	
+	performance difference lemma :
+		
+		difference between  V_pi(s) - V_pi'(s)
+			average advantage value 
+			considering a trajectory ---> average advantage for each step
+						
+	
+	

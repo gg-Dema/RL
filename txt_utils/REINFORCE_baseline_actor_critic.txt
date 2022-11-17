@@ -1,0 +1,109 @@
+Reinforce & Baseline and Actor-critic
+
+RECAP
+	policy gradients 
+		overview of problem of policy by value: 
+		|	Action space | too large
+		|	Some setting: Stochastics policy are the optimal one
+		|				  Stochastics are difficult to take by V(s)
+		|				  	--> only parameters with stochastics: epsilon greedy
+		|	By approximating: "extrapolation effect" ---> shift distrib + lot of oscillation 
+		|-----
+		
+		Try to learn the policy for avoid this problemm
+			Stochastic Policy  ---> parametreized policy 
+		
+		Topic of the day: Actor -critic | mix up between Value policy and policy search
+	
+		HOW FIND PARAMETERS FOR BEST POLICY
+			
+			Objective function
+			1) how define the best policy? By Value funct
+				for episodic tasks 		: 	Value at start state
+				for continuing tasks	: 	Value discounted OR average reward per timestep
+			
+			2)how find best parameters? GRADIENT BASE METHODS OR GRADIENT FREE
+				
+				Policy grad: complex ---> gradient depends by policy, and by theta
+										  difficult to compute, better avoid that 
+										  		---> finite difference [also for non differentiable policy]
+										  		average several trakectory for reduce variance
+										  OR use differentaible policy classes and do the derivate
+										  	softmax/softmax linear ---> discreate case
+										  	Gaussian Policy ---> for continuos case
+				
+				Likelihood ratio policy gradient : way for calc grad
+					maximaize pr of frequentely visited state BLA BLA BLA
+					
+					generalize ---> get Policy gradient Theorem
+----------------------------
+END RECAP
+
+policy grad th: 
+	way for calc gradient of out J funct ---> use log of policy * Q(s, a) 
+		how calc Q(s, a) = Policy evaluation (montecarlo methods / TD methods) ---> integrate this on policy grad
+		
+	1 opt = Use G as unbiased estimate of Q ---> mc sense
+	
+REINFORCE (alg) 
+
+	----------------------------------------------------------------------------	
+	init policy params theta
+	for each ep in pi_theta :
+		for t =1 to T-1:
+			update  theta (theta = theta + alpha * grad * log (pi(s, a)) * G_t 
+			
+			
+			
+		----------------------------------------------------------------------------
+	HERE WE USE THE MC FOR ESTIMATE ALSO THE ADVANTAGE FUNCT
+	
+	where G_t is the return for each time step 
+		Unbiased but VARIANCE ---> problem by the return 
+		2 solution : Td ---> introduce bias
+					#######VS#######
+					 use baseline b(s) ---> G = (Q(s,a) - b(s)) 
+					 baseline ~ V(s)
+					 |	ps: is b(s) introduce a bias? NOPE but we have to prove
+					 |		
+					 |		prove proceduce: 
+					 |			isolate a term
+					 |			expand the expatation 
+				 	 |		a good part is simplify (both are pi_theta(a|s) ---> remain b(s) * SUM(grad)
+				 	 |		equal to B(s) * grad(SUM) = B(S) * grad(sum over pr) = b(S) * derivative of 1 ---> 0 
+				 	 |		Expectation of b(s) inside the term: 0 ---> no extra bias 
+				 	 |		
+				 	----> in generatl b(s) cannot be function of the action, else cannot bring out from the sum
+				 	
+		Extra on baseline:
+			Q(s, a) - b(s)  ---> advantage function A(s, a)
+			consider the classic schema of v(s) vs Q(a, s) by s0
+			the advantage is the checking over the other possible action, respect the baseline 
+				
+		
+			btw, in REINFORCE we estimate our Q(s,a) as return ---> base way: summation of reward over trajectory 	
+		
+			if we have the true value funct : TD error is  a unbiased estimate of advantage funct	
+				consider expectatio of td_error
+				btw, that in general False, at least in practise 
+			Still use TD_error as estimation, but knowing that now it's biased 
+			𝛻𝜃J(𝜋𝜃) = EXP( bla bla bla * delta_td_Error)
+			
+			DEFINE CRITIC : estiamtion of G by td_error
+		
+	---------------------------
+	
+	MC vs TD in policy gradient 
+	
+	MC (reinforce)	  : target for MC is the return G 
+	TD (actor critic) : the target is a TD target and relies on bootstrapping
+	
+	
+	
+		
+	
+to search: 	difference between actor critic and a baseline 
+
+			
+		
+			

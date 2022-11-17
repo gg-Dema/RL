@@ -5,5 +5,14 @@
 /.idea/
 /Course Material 3cfu
 /HW/.ipynb_checkpoints
- HW/assignment1/ilqr/__pycache__/
-/HW/assignment1/2012633.zip
+/HW/assignment1/ilqr/__pycache__/
+HW/__init__.py
+/HW/__pycache__/
+/HW/assignment1/ilqr/__pycache__/
+HW/assignment2/__init__.py
+/HW/assignment2/__pycache__/
+/HW/assignment2/rbf/__init__.py
+HW/assignment2/rbf/__pycache__/
+HW/assignment2/rbf/model.pkl
+model.pkl
+
