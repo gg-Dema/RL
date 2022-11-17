@@ -15,4 +15,6 @@ HW/assignment2/__init__.py
 HW/assignment2/rbf/__pycache__/
 HW/assignment2/rbf/model.pkl
 model.pkl
+/HW/assignment2/sarsa_lambda/__pycache__/student.cpython-310.pyc
+
 
