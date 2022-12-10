@@ -21,7 +21,7 @@ import pickle
 device = 'cpu'
 
 from policy import Policy
-env_id = "CarRacing-v2"
+env_id = "CarRacing_random1-v2"
 # Create the env
 env = gym.make(env_id, continuous=False, domain_randomize=False)
 

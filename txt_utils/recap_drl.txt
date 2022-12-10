@@ -1,0 +1,118 @@
+Policy Grad: estimate probability of each action in a given state
+	--> using a NN: policy Net [output: P(X_t, W, a)]
+							result: sampled according to pr distrib 
+							W update rule: based on reward of previous iter
+								J = expected discounted reward: SUM(EXPECT[γ^i r_i])
+								W = W + α∇J
+								problem: J is just a montecarlo reward,
+										 we want expected reward
+Problem: how calc gradient (montecarlo setting vs expectation): 
+	
+	FINITE DIFFERENCE METHODS: BOOK
+		weight pertubation : use s perturbation ---> average (just a estimation)
+			ecxaminate the expected change in ∆J in term of reward
+			AKA ROLL-OUT step
+			
+			So, get s different weight vector (change vect)
+			[ ∆W1, ∆W2, ..., ∆Ws ]
+			
+			collect  [∆J1, ∆J2, ...,  ∆Js]
+			set (∆W_i) GRAD(J) ~ ∆J_i
+			
+			set y = [∆J1, ∆J2, ..., ∆Js]T
+			set D = matrix [∆Wr] with r in [1:s] <--- stack of vector
+			set D*(GRAD(J))T ~ y
+			invert and get grad
+			
+	FINITE DIFFERENCE IN SLIDE: using Value Funct
+	
+		J = SUM(EXPECT[γ^i r_i])
+		Aka J = V(s0)
+		
+		perturb W by small amount in k-th dimension 
+		
+						 V(s0, w-eps*Uk) - V(s0, w)
+			∇v(s0, w) ~	--------------------------
+								eps
+			Uk = vect of 1-hot enc ---> k val = 1
+			using n evaluations ---> comp gradient in n step 
+			[OK even if policy are not differentaible]
+			
+	BY SLIDE: DIFFERENTIABLE POLICY CLASSES : EXPRESS POLICY AS DIFF. FUNCT
+	
+	BY BOOK: LikeliHood Ratio Methods: 
+		
+		created in context of REINFORCE alg: 
+		we want maximaize EXP[Q(s, a)] where policy are taken by a probability vect p
+		
+		∇ EXP[Q(s,a)] ~~ EXP[Q(s, a) ∇log(p(a)) LOG-PROBABILITY TRICK 
+		work for both continuos or discreate action 
+		So, update rule: 
+			W = W + Q(s, a)∇log(p(a))
+			p(a) = neural net output [probability of sampled action]
+			
+			
+Policy Gradient Theorem : 
+	
+	generalization of likelihood approach
+	take out gamma^h from sum ---> geometric series
+
+--------------------------------------------------------------------------------
+END OF THE SLIDE POLICY SEARCH
+
+BY BOOK 9.5.4: ACTOR CRITIC METHODS: 
+-----------------------------------------------
+REINFORCE V2: 
+	REINFORCE is just a NN that give us a pr for each action --> policy net
+	maximizing expected return over trajectories insted of episodes
+	
+	REINFORCE (alg) 
+	----------------------------------------------------------------------------	
+	init policy params theta --> a NN weigth
+	calc G_t as expected reward 
+	for each ep {s1, a1, r2, ..., r_T} in pi_theta :
+		for t =1 to T-1:
+			theta = [theta + alpha * grad * log (pi(s, a)) * G_t] 
+	return theta
+	
+	problem with Reinforce alg: no bias but a lot of variace, 
+	so we have to average (introduce bias)
+	
+	OR baseline vers: define advantage funct [Q(a, s) - b(s)]
+											 [Q(a, s) - V(s)] = A(s, a)
+			
+	the advantage is the checking over the other possible action, respect the baseline 
+				
+	it's possible to mixup advantage funct with REINFORCE:
+	------------------------------------------------------------------
+	init w, baseline b
+	for iter in max_iterations.
+		collect set of trajectories, execute current policy
+		for each t in (range(trajectories):
+			G = sum(t:T-1) r_t
+			calc advantage A = G_t - b(s_t)
+		
+		refit baseline: minimaize distance |b(s) - G(s)|^2
+		update polict with policy_net ---> use advantage inside grad
+	----------------------------------------------------------------
+	
+	possible estiamtion of V(s) = TD: unbiased
+		use delta = r + gamma V(s') - V(s)
+		as advantage funct
+		EXPECT [TD_error|s, a] = Q_pi - V_pi
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		

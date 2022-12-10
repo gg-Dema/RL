@@ -14,4 +14,34 @@ Policy iteration recall:
 			considering a trajectory ---> average advantage for each step
 						
 	
+
+KL-div : compute difference between distribution 
+	formulate policy as maximaize advantage
+	+ contraint: new distrib is not so distante respect the previous one (in term of KL-div)
+	 
+	KL = EXPECT ln(p_pi_theta_t() / pi_pi_theta()) 
+	with p_theta() in general = trakectory probability
 	
+	KL(p_theta | p_theta_t) < delta : total contraint 
+	^
+	|
+	|---- How to optimize? taylor funct for approximation (1 or 2 order)
+		  
+		  first term is 0: advantage of the policy respect itself 
+		  total: GRAD J(pi_theta)T (theta - theta_t) 
+		  
+		  KL ~ 		l(theta_t) 
+		  			+ grad l(theta_t)T(theta - theta_t) 
+		  			+ 1/2(theta-theta_t)T*grad2 (l(theta_t)T(theta - theta_t))
+	 	
+	 	  Notice that the first l is 0 
+	 	  grad of l equivalent to expectation, can be moved inside or outside 
+										 	  (grad and exp are indipendent)
+										 	  
+		|
+		|
+		| for some reason also first gradient is 0 
+		| we have to focus on the 2grad
+		
+		
+		

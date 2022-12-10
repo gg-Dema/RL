@@ -1,0 +1,63 @@
+Failure mode of RL:
+	reward = 0 in each state except in goal state
+		(mountain car || super mario)
+	(if we don't reach the state by random exploration we cannot train nothing)
+	
+
+consider MDP with 2 act for each state
+last state = goal =>  r=1
+one time that we took the wrong action there is 0 pr of reach the goal 
+
+better exploration: Topic of today (exploration vs explotation) 
+
+Multi-Armed Bandit---> 
+		one state,
+		k different arms ---> action a1...ak
+		different reward distribution v_i for each arm with mu_i = mean = EXP(reward)
+		iid reward ---> no connection in time 
+	
+	can be applied to ADS : 1 if i click, 0 otherwise  --> each action = 1 ads
+	
+	iteraction solving: 
+	for t=0 --- T-1
+	pull arm I_t {i, k}
+	....
+	----
+	
+	Regret = opportunity loss ---> think about knowing the best action to take,
+								 (better arm with higher mean )
+								 mu* = max mu_i
+			 we don't know the best opt, just assuming that we have it
+	regret = T * mu*  - SUM(mu_I_t) 
+	similar to advantage: best mean * timestep max MINUS other optimon 
+	
+exploration vs exoplotation: commit to best arm (exploit) or less frequently in past (explore)
+
+	0) base explor: 
+		try each arm ones, commit with the best [GREEDY] --> we are sampling by a distrib
+		can exist low mean arm that give us in 1 sample a higher result
+	
+	1) better average over some sample ---> estimated empirical mean 
+		optimize regret: calc confidence of mean : hoeffding inequality
+			during exploration for each arms --> with pr 1 - delta: we fall in a range 
+			setting delta to 0.01 ---> with pr 99% we get a conf intervall
+		now calc regret : in this case  we know the real mean, so it's possible
+		(T-NK)(mu3 - mu2) = REGRET ---> small difference, the interval of conf it's small
+		
+		real calc: 
+			empirical best arm: argmax mean(estimated)
+			real = argmax mean(real)
+			
+			worst case for exploration case: NK > N(K - difference in reawrd (1)) > regret 
+			wort case for exploitation : -------------------
+			
+			
+			compute difference of worst case using conf intervall 
+			total regret = regret_exp + tegret_exploit ---> to min
+			grad(total_regret) = 0 --> solve for N = optimal numb of step for explore 
+			
+			Pretty slow
+			
+	2) better of this: --> regret decaying [but exist a lower bound of O(square_root(T)) ]
+		considering statistic + confidence 
+		do exploration at same time of explotation 
