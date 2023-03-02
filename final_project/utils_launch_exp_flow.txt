@@ -1,0 +1,80 @@
+
+LAUNCH SINGLE EXPERIMENT
+
+Ps: degli import che il file contiene se ne usano si e no la metà
+
+
+3 funct: 
+	experiment
+	deep_update_dict(from:dict , to:dict) 
+	main (config:path_str, gpu:int 0, docker:bool, debug:bool)
+_________________________________________________________
+			variant : default config ---> dict, defined in another file 
+			# default PEARL experiment settings
+			# all experiments should modify these settings only as needed
+	
+		open config as file ---> load params form json, 
+		deep_update_dict, params_of_config, variant
+	variant['util_params']['gpu_id'] = gpu
+	
+	experiment(variant) 
+		
+		# hardware setting
+		---------------------
+		torch.set_num_threads + set_gpu_mode (from personal utility function: set global info gpu)
+		num_task = 10
+		env_unshuffled = []
+		
+		
+		# task and env setting 
+		-----------------------
+		metaworld, random import 
+		
+		ml10 = metaworkld.mt10 ---> benchmark
+		testing_envs = []
+		
+		for name, env_cls in ml10.train_classes.items(): 
+			env = env_cls()
+			task = [task for task in ml10.train_task if task.env_name == name][0]
+			env.set_task(task)
+			env_unshuffled.append(env)
+		
+		
+		# dynamics setting
+		---------------------------
+		dynamics = BNNdynamics(...)
+		qf1_set = []
+		qf2_set = []
+		vf_set = []
+		policy_set = []
+		agent_set = []
+		forward_dynamic_set = []
+		
+		for i in range(len(env)):
+			forward_dynamic = BNN() 
+			forward_dynamic_set.append(forward_dynamic)  --> reti per il singolo task?
+			
+		
+		agent = Agent(
+			sub_net_forward_dynamic = forward_dynamic_set, 
+			global_dynamic = dynamic
+			action_dim, 
+			**variant['algo_params]
+		)
+		
+		# log setting
+		------------------------
+		 BLA BLA BLA
+		
+		# train
+		------------------
+		algorithm = bayesianLifeLongRL(env, nets = [agent, forward_dyna_set], ...)
+		
+		
+		algorithm.train()
+		
+		
+## INFO METAWORLD: 
+	see documentation. Metaworld is just a evaluation benchmark setting. 
+	The code above comes from the launch ml10 task
+	
